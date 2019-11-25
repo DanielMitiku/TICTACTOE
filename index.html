@@ -8,43 +8,24 @@
   <title>TICTACTOE</title>
 </head>
 <body>
-  <h1 class="text-center mt-4">TICTACTOE</h1>
-    <div class="container">
-        <h2>Please Enter Player's Name</h2>
-        <form class="new-form mt-4">
-            <div class="form-group">
-                <label for="player1">Player1</label>
-                <input type="text" class="form-control" id="player1" placeholder="Enter player1's name">
-            </div>
+  <h2 class="text-center mt-4">Tic<span class="mid-title">Tac</span>Toe</h2>
+  <h5 class="text-center"> Enter players' names and click play to start the game!</h5>
+  <div class="container">
+    <form class="player-info mb-4">
+      <div class="form-group">
+        <label for="player1">Player 1 (X)</label>
+        <input type="text" class="form-control" id="player1" placeholder="Name of player 1">
+      </div>
+  
+      <div class="form-group">
+        <label for="player2">Player 2 (O)</label>
+        <input type="text" class="form-control" id="player2" placeholder="Name of player 2">
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Play</button>
+    </form>
 
-            <div class="form-group">
-                <label for="player2">Player2</label>
-                <input type="text" class="form-control" id="player2" placeholder="Enter player2's name">
-            </div>
-      
-            <button type="submit" class="btn btn-primary submit">Submit</button>
-          </form>
-
-          <div class="row hidden">
-              <div class="row row1">
-                    <div class="col-1"></div>
-                    <div class="col-1"></div>
-                    <div class="col-1"></div>
-              </div>
-            
-              <div class="row row2">
-                    <div class="col-1"></div>
-                    <div class="col-1"></div>
-                    <div class="col-1"></div>
-              </div>
-
-              <div class="row row3">
-                    <div class="col-1"></div>
-                    <div class="col-1"></div>
-                    <div class="col-1"></div>
-              </div>
-
-          </div>
+    <div class="alert alert-primary game-status"> <h4>Board:</h4>
     </div>
   <script src="js/main.js"></script>
 </body>
