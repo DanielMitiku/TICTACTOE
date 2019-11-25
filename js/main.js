@@ -1,9 +1,9 @@
+/*eslint-env browser*/
+
 const playerFactory = (name, mark) => {
   const playTurn = (board, cell) => {
     const idx = board.cells.findIndex((position) => position === cell);
-
     if (board.boardArray[idx] === '') {
-      // board.boardArray[idx] = `${mark}`;
       board.render();
       return idx;
     }
@@ -126,3 +126,5 @@ const gamePlay = (() => {
     gameInit,
   };
 })();
+
+gamePlay.gameInit();
