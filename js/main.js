@@ -53,3 +53,73 @@ const boardModule = (() => {
     render, gameBoard, cells, boardArray, checkWin, reset,
   };
 })();
+
+const gamePlay = (() => {
+  let playerOneName = document.querySelector('#player1');
+  let playerTwoName = document.querySelector('#player2');
+  const form = document.querySelector('.player-info');
+  const resetBtn = document.querySelector('#reset');
+
+  // gameInit sets the board and the players and runs a game round
+  const gameInit = () => {
+    playerOne = playerFactory(playerOneName.value, 'X');
+    playerTwo = playerFactory(playerTwoName.value, 'O');
+    currentPlayer = playerOne;
+    gameRound();
+  };
+
+  /* global gameRound, render, checkWin, reset */
+  const gameRound = () => {
+    const board = boardModule;
+    const gameStatus = document.querySelector('.game-status');
+    if (currentPlayer.name !== '') {
+      gameStatus.textContent = `${currentPlayer.name}'s Turn`;
+    }
+    else {
+      gameStatus.textContent = 'Board: ';
+    }
+    board.gameBoard.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (currentPlayer.playTurn(board, event.target) !== null) {
+        const winStatus = board.checkWin();
+        if (winStatus === 'Tie') {
+          gameStatus.textContent = 'Tie!';
+        } else if (winStatus === null) {
+          switchTurn();
+          gameStatus.textContent = `${currentPlayer.name}'s Turn`;
+        } else {
+          gameStatus.textContent = `Winner is ${currentPlayer.name}`;
+          board.reset();
+          board.render();
+        }
+      }
+    });
+  };
+
+  /* global switchTurn, playerOne, playerTwo, currentPlayer */
+  const switchTurn = () => {
+    currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+  };
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (playerOneName !== '' && playerTwoName !== '') {
+      gameInit();
+      form.classList.add('hidden');
+    } else {
+      window.location.reload();
+    }
+  });
+
+  resetBtn.addEventListener('click', () => {
+    document.querySelector('.game-status').textContent = 'Board: ';
+    document.querySelector('#player1').value = '';
+    document.querySelector('#player2').value = '';
+    window.location.reload();
+  });
+  return {
+    gameInit
+  };
+})();
+
+gamePlay.gameInit();
