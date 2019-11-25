@@ -1,5 +1,5 @@
 const playerFactory = (name, mark) => {
-  playTurn = (board, cell) => {
+  const playTurn = (board, cell) => {
     const idx = board.cells.findIndex((position) => position === cell);
 
     if (board.boardArray[idx] === '') {
@@ -19,17 +19,17 @@ const boardModule = (() => {
   const cells = Array.from(document.querySelectorAll('.cell'));
   let winner = null;
 
-  render = () => {
+  const render = () => {
     boardArray.forEach((mark, idx) => {
       cells[idx].textContent = boardArray[idx];
     });
   };
 
-  reset = () => {
+  const reset = () => {
     boardArray = ['', '', '', '', '', '', '', '', ''];
   };
 
-  checkWin = () => {
+  const checkWin = () => {
     const winArrays = [
       [0, 1, 2],
       [3, 4, 5],
@@ -55,29 +55,24 @@ const boardModule = (() => {
 })();
 
 const gamePlay = (() => {
-  let playerOneName = document.querySelector('#player1');
-  let playerTwoName = document.querySelector('#player2');
+  const playerOneName = document.querySelector('#player1');
+  const playerTwoName = document.querySelector('#player2');
   const form = document.querySelector('.player-info');
   const resetBtn = document.querySelector('#reset');
 
-  // gameInit sets the board and the players and runs a game round
-  const gameInit = () => {
-    playerOne = playerFactory(playerOneName.value, 'X');
-    playerTwo = playerFactory(playerTwoName.value, 'O');
-    currentPlayer = playerOne;
-    gameRound();
+  const switchTurn = () => {
+    currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
   };
 
-  /* global gameRound, render, checkWin, reset */
   const gameRound = () => {
     const board = boardModule;
     const gameStatus = document.querySelector('.game-status');
     if (currentPlayer.name !== '') {
       gameStatus.textContent = `${currentPlayer.name}'s Turn`;
-    }
-    else {
+    } else {
       gameStatus.textContent = 'Board: ';
     }
+
     board.gameBoard.addEventListener('click', (event) => {
       event.preventDefault();
       if (currentPlayer.playTurn(board, event.target) !== null) {
@@ -96,9 +91,11 @@ const gamePlay = (() => {
     });
   };
 
-  /* global switchTurn, playerOne, playerTwo, currentPlayer */
-  const switchTurn = () => {
-    currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+  const gameInit = () => {
+    playerOne = playerFactory(playerOneName.value, 'X');
+    playerTwo = playerFactory(playerTwoName.value, 'O');
+    currentPlayer = playerOne;
+    gameRound();
   };
 
   form.addEventListener('submit', (event) => {
@@ -118,7 +115,7 @@ const gamePlay = (() => {
     window.location.reload();
   });
   return {
-    gameInit
+    gameInit,
   };
 })();
 
