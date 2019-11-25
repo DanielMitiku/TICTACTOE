@@ -108,7 +108,7 @@ const gamePlay = (() => {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    if (playerOneName !== '' && playerTwoName !== '') {
+    if (playerOneName.value !== '' && playerTwoName.value !== '') {
       gameInit();
       form.classList.add('hidden');
     } else {
@@ -126,5 +126,3 @@ const gamePlay = (() => {
     gameInit,
   };
 })();
-
-gamePlay.gameInit();
