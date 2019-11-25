@@ -3,11 +3,11 @@ const playerFactory = (name, mark) => {
     const idx = board.cells.findIndex((position) => position === cell);
 
     if (board.boardArray[idx] === '') {
-      board.boardArray[idx] = `${mark}`;
-    } else {
-      return null;
+      // board.boardArray[idx] = `${mark}`;
+      board.render();
+      return idx;
     }
-    board.render();
+    return null;
   };
 
   return { name, mark, playTurn };
@@ -42,7 +42,9 @@ const boardModule = (() => {
     ];
 
     winArrays.forEach((combo) => {
-      if (boardArray[combo[0]] && boardArray[combo[0]] === boardArray[combo[1]] && boardArray[combo[0]] === boardArray[combo[2]]) {
+      if (boardArray[combo[0]]
+        && boardArray[combo[0]] === boardArray[combo[1]]
+        && boardArray[combo[0]] === boardArray[combo[2]]) {
         winner = 'current';
       }
     });
@@ -59,6 +61,9 @@ const gamePlay = (() => {
   const playerTwoName = document.querySelector('#player2');
   const form = document.querySelector('.player-info');
   const resetBtn = document.querySelector('#reset');
+  let currentPlayer;
+  let playerOne;
+  let playerTwo;
 
   const switchTurn = () => {
     currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
@@ -75,7 +80,10 @@ const gamePlay = (() => {
 
     board.gameBoard.addEventListener('click', (event) => {
       event.preventDefault();
-      if (currentPlayer.playTurn(board, event.target) !== null) {
+      const play = currentPlayer.playTurn(board, event.target);
+      if (play !== null) {
+        board.boardArray[play] = `${currentPlayer.mark}`;
+        board.render();
         const winStatus = board.checkWin();
         if (winStatus === 'Tie') {
           gameStatus.textContent = 'Tie!';
