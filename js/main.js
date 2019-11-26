@@ -100,10 +100,12 @@ const gamePlay = (() => {
   };
 
   const gameInit = () => {
-    playerOne = playerFactory(playerOneName.value, 'X');
-    playerTwo = playerFactory(playerTwoName.value, 'O');
-    currentPlayer = playerOne;
-    gameRound();
+    if(playerOneName.value !== '' && playerTwoName.value !==''){
+      playerOne = playerFactory(playerOneName.value, 'X');
+      playerTwo = playerFactory(playerTwoName.value, 'O');
+      currentPlayer = playerOne;
+      gameRound();
+    }
   };
 
   form.addEventListener('submit', (event) => {
@@ -111,6 +113,7 @@ const gamePlay = (() => {
     if (playerOneName.value !== '' && playerTwoName.value !== '') {
       gameInit();
       form.classList.add('hidden');
+      document.querySelector('.place').classList.remove('hidden');
     } else {
       window.location.reload();
     }
