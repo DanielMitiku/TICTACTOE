@@ -100,7 +100,7 @@ const gamePlay = (() => {
   };
 
   const gameInit = () => {
-    if(playerOneName.value !== '' && playerTwoName.value !==''){
+    if (playerOneName.value !== '' && playerTwoName.value !=='') {
       playerOne = playerFactory(playerOneName.value, 'X');
       playerTwo = playerFactory(playerTwoName.value, 'O');
       currentPlayer = playerOne;
