@@ -10,6 +10,8 @@ The full project requirement is available on [the odin project](https://www.theo
 
 - Open the index.html file in your browser.
 
+- The live version of the game can be found [here](https://danielmitiku.github.io/TICTACTOE)
+
 ## Developers
 
 - [Moses Ogwo](https://github.com/mosesogwo)
